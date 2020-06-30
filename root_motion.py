@@ -109,23 +109,39 @@ class Root_motion_apply_rotscale(bpy.types.Operator):
             for item_action in bpy.data.actions:
                 bpy.ops.object.mode_set(mode='OBJECT')
                 bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
-
-                hip_fc_array=get_curve_loc(item_action,hip)
                 
-                for fc in hip_fc_array:
-                    scale_rate=scale_origin[fc.array_index]/scale_target[fc.array_index]
-                    for point in fc.keyframe_points:
-                        hip_fc_array[fc.array_index].keyframe_points.insert(point.co.x,point.co.y*scale_rate)
+                # fix all bones translation for appling scale
+                for bone in obj.pose.bones:
+                    bone_fc_array=get_curve_loc(item_action,bone)
+                    for fc in bone_fc_array:
+                        scale_rate=scale_origin[fc.array_index]/scale_target[fc.array_index]
+                        for point in fc.keyframe_points:
+                            bone_fc_array[fc.array_index].keyframe_points.insert(point.co.x,point.co.y*scale_rate)
+
+#                hip_fc_array=get_curve_loc(item_action,hip)
+#                
+#                for fc in hip_fc_array:
+#                    scale_rate=scale_origin[fc.array_index]/scale_target[fc.array_index]
+#                    for point in fc.keyframe_points:
+#                        hip_fc_array[fc.array_index].keyframe_points.insert(point.co.x,point.co.y*scale_rate)
         else:
             bpy.ops.object.mode_set(mode='OBJECT')
             bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
 
-            hip_fc_array=get_curve_loc(action,hip)
+            # fix all bones translation for appling scale
+            for bone in obj.pose.bones:
+                bone_fc_array=get_curve_loc(action,bone)
+                for fc in bone_fc_array:
+                    scale_rate=scale_origin[fc.array_index]/scale_target[fc.array_index]
+                    for point in fc.keyframe_points:
+                        bone_fc_array[fc.array_index].keyframe_points.insert(point.co.x,point.co.y*scale_rate)
             
-            for fc in hip_fc_array:
-                scale_rate=scale_origin[fc.array_index]/scale_target[fc.array_index]
-                for point in fc.keyframe_points:
-                    hip_fc_array[fc.array_index].keyframe_points.insert(point.co.x,point.co.y*scale_rate)
+#            hip_fc_array=get_curve_loc(action,hip)
+#            
+#            for fc in hip_fc_array:
+#                scale_rate=scale_origin[fc.array_index]/scale_target[fc.array_index]
+#                for point in fc.keyframe_points:
+#                    hip_fc_array[fc.array_index].keyframe_points.insert(point.co.x,point.co.y*scale_rate)
         return {'FINISHED'}
     
 def select_object(name):
