@@ -6,6 +6,8 @@ Blender root motion addon for Godot,includes batch rename feature for bones
 
 2,apply armature rotation and scale
 
+3,batch rename for bones
+
 ### How To Use
 https://www.youtube.com/watch?v=VtvnzsfqxNA
 
