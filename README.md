@@ -1,5 +1,5 @@
 # root_motion
-Blender root motion addon for Godot,includes batch rename feature for bones
+Blender root motion addon for Godot,includes applying armature transform feature
 
 ### Features(Root motion part)
 1,create root motion with f-curve editing,not baking
